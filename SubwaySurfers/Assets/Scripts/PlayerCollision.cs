@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
@@ -8,10 +9,16 @@ public class PlayerCollision : MonoBehaviour
     public bool invulnerable;
     public float tiempoInvulnerable;
 
-    
+    private void Start()
+    {
+        vidasMax = vidasActuales;
+    }
+
     public void OnGolpe()
     {
-        // Restar vida, activar invulnerabilidad
-
+        vidasActuales --;
+        Debug.Log("Golpe recibido. Vidas restantes: ");
+        if (vidasActuales<=0)
+            GetComponent<Player>().Die();
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -6,6 +7,9 @@ public class GameManager : MonoBehaviour
 
     public enum GameState { Menu, Countdown, Playing, Paused, GameOver }
     public GameState currentState;
+
+    [Header("UI")]
+    public GameObject panelGameOver;
 
     [Header("References")]
     public SpawnerDirector spawnerDirector;
@@ -28,12 +32,15 @@ public class GameManager : MonoBehaviour
 
     public void EndRun()
     {
-        // Mostrar pantalla GameOver
+        currentState = GameState.GameOver;
+        Time.timeScale = 0f; // Pausa el juego
+        panelGameOver.SetActive(true);
     }
 
     public void RestartGame()
     {
-        // Reiniciar escena o resetear datos
+        Time.timeScale = 1f; // Reactivar tiempo
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void SetState(GameState newState)

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Tren : ObstaculoBase
@@ -12,6 +13,15 @@ public class Tren : ObstaculoBase
 
     public override void AplicaGolpe(Player player)
     {
-        // Implementar golpe
+        player.collision.OnGolpe();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Player player = other.GetComponent<Player>();
+        if (player != null)
+        {
+            AplicaGolpe(player);
+        }
     }
 }
